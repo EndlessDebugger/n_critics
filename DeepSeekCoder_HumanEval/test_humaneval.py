@@ -7,9 +7,11 @@ from datasets import load_dataset
 from human_eval.evaluation import evaluate_functional_correctness
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+scratch = os.getenv("SCRATCH")
 
 # 模型加载
-model_path = "/scratch/user/lsc206573/nlp/Deepseek-Coder-V2-Lite-Instruct/"
+model_path = os.path.join(scratch, "n_critics", "Deepseek-Coder-V2-Lite-Instruct"
+thisdir = os.path.join(scratch, "n_critics", "DeepSeekCoder_HumanEval")
 tokenizer = AutoTokenizer.from_pretrained(model_path,local_files_only=True)
 model = AutoModelForCausalLM.from_pretrained(
     model_path, device_map="auto", torch_dtype=torch.float16,local_files_only=True,trust_remote_code=True
@@ -23,12 +25,12 @@ model.generation_config.max_length = 600
 dataset = load_dataset("openai_humaneval")["test"]
 
 # 文件路径
-sample_file = "/scratch/user/lsc206573/generated_samples.jsonl"
+responses_file = os.path.join(thisdir, "generated_samples.jsonl")
 
 # 加载已完成 task_id（断点续跑）
 completed_task_ids = set()
-if os.path.exists(sample_file):
-    with open(sample_file, "r") as f:
+if os.path.exists(responses_file):
+    with open(responses_file, "r") as f:
         for line in f:
             try:
                 data = json.loads(line.strip())
@@ -36,7 +38,7 @@ if os.path.exists(sample_file):
                     completed_task_ids.add(data["task_id"])
             except json.JSONDecodeError:
                 continue
-    print(f"Found {len(completed_task_ids)} completed samples.")
+    print(f"Loaded {len(completed_task_ids)} responses.")
 
 # 代码生成函数
 def generate_code(prompt, max_length=256):

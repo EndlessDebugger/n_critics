@@ -42,9 +42,15 @@ def get_critiques(models, prompt):
         critiques.append(critique)
     return critiques
 
-def refine_prompt(prompt, critiques):
-    """Refine the prompt based on critiques."""
-    refinement_prompt = f"Refine the following response based on these critiques:\n\nCritiques:\n{critiques}\n\nOriginal response:\n{prompt}"
+def refine_prompt(orig_response, orig_prompt, critiques):
+    """Refine the primary model's response based on critiques."""
+    refinement_prompt = f"You were originally tasked with writing code to solve the following programming problem: \n\n{orig_prompt}\n\n"
+    refinement_prompt += f"You generated the following code: \n\n## YOUR CODE RESPONSE ##\n{orig_response}\n\n"
+    refinement_prompt += f"Your answer received the following critiques: \n\n"
+    for critique in critiques:
+      refinement_prompt += critique + '\n'
+    refinement_prompt += '\n'
+    refinement_prompt += "Please update your response based on the critiques your answer received."
     return refinement_prompt
 
 def n_critics_algorithm(primary_model, critic_models, initial_prompt, max_iterations=4):
@@ -56,7 +62,7 @@ def n_critics_algorithm(primary_model, critic_models, initial_prompt, max_iterat
         critiques = get_critiques(critic_models + [primary_model], output)
 
         # Check if critiques suggest the output is satisfactory
-        if "satisfactory" in " ".join(critiques).lower():
+        if "The response is fully satisfactory" in " ".join(critiques).lower():
             return output
         
         refined_prompt = refine_prompt(output, critiques)
