@@ -24,9 +24,12 @@ def load_tasks(init_prompt = "", num_samples=1) -> list[Task]:
 @contextmanager
 def load_model(model_name: str):
     """Load model temporarily on GPU with FP16, unload after use."""
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    cache_dir = os.path.join(os.path.dirname(__file__), ".cache")
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, cache_dir=cache_dir)
     model = AutoModelForCausalLM.from_pretrained(
-        model_name, device_map="auto", torch_dtype=torch.float16
+        model_name, device_map="auto", torch_dtype=torch.float16, trust_remote_code=True, cache_dir=cache_dir)
     )
     try:
         yield tokenizer, model
