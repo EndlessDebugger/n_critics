@@ -5,8 +5,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import gc
 from contextlib import contextmanager
 
-from human_eval.human_eval.evaluation import evaluate_functional_correctness
-from human_eval.human_eval.data import read_problems, write_jsonl
+from human_eval.evaluation import evaluate_functional_correctness
+from human_eval.data import read_problems, write_jsonl
 from task import Task
 
 def load_tasks(init_prompt = "", num_samples=1) -> list[Task]:
