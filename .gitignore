@@ -1,3 +1,4 @@
 *Deepseek-Coder-V2-Lite-Instruct/*
 .cache/
 error_log.*
+human-eval/

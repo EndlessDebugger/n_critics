@@ -27,8 +27,11 @@ def load_model(model_name: str):
     cache_dir = os.path.join(os.path.dirname(__file__), ".cache")
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
-    tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
-    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16, cache_dir=cache_dir)
+    trc = False
+    if "deepseek" in model_name.lower():
+        trc = True
+    tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir, trust_remote_code=trc)
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16, cache_dir=cache_dir, trust_remote_code=trc)
     try:
         yield tokenizer, model
     finally:
