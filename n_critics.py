@@ -72,10 +72,12 @@ def n_critics_algorithm(primary_model, critic_models, initial_prompt, max_iterat
 
     return output  # Return the final refined output
 
-# Example usage
-primary_model = "deepseek-ai/Deepseek-Coder-V2-Lite-Instruct"
-critic_models = ["gemma", "llama3"]
-initial_prompt = "Explain quantum mechanics in simple terms."
 
-refined_output = n_critics_algorithm(primary_model, critic_models, initial_prompt)
-print(refined_output)
+# Example usage
+if __name__ == "__main__":
+    primary_model = "deepseek-ai/Deepseek-Coder-V2-Lite-Instruct"
+    critic_models = ["gemma", "llama3"]
+    initial_prompt = "Explain quantum mechanics in simple terms."
+
+    refined_output = n_critics_algorithm(primary_model, critic_models, initial_prompt)
+    print(refined_output)

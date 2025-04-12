@@ -3,10 +3,11 @@ import json
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from datasets import load_dataset
-from human_eval.evaluation import evaluate_functional_correctness
+from human_eval.human_eval.evaluation import evaluate_functional_correctness
 
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+scratch = os.getenv("SCRATCH")
 
 # load model
 model_name = "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
@@ -28,6 +29,7 @@ def generate_code(prompt, max_length=256):
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
 # JSONL file path
+
 sample_file = "/scratch/user/lsc206573/generated_samples.jsonl"
 
 
