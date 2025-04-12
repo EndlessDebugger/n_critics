@@ -28,9 +28,7 @@ def load_model(model_name: str):
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, cache_dir=cache_dir)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name, device_map="auto", torch_dtype=torch.float16, trust_remote_code=True, cache_dir=cache_dir)
-    )
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16, trust_remote_code=True, cache_dir=cache_dir)
     try:
         yield tokenizer, model
     finally:
