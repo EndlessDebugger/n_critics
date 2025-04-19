@@ -1,4 +1,4 @@
-class Task():
+class NCriticsTask():
     id = None 
     problem_statement = None 
     prompt = None

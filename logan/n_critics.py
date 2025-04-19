@@ -8,15 +8,15 @@ import tqdm
 
 from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
-from task import Task
+from logan.ncriticstask import NCriticsTask
 
-def load_tasks(init_prompt = "", num_samples=1) -> list[Task]:
-    """Initializes a list of Task objects from the problem set."""
+def load_tasks(init_prompt = "", num_samples=1) -> list[NCriticsTask]:
+    """Initializes a list of NCriticsTask objects from the problem set."""
     task_list = []
     problems = read_problems()
     for task_id, task in problems.items():
         for _ in range(num_samples):
-            task_obj = Task(id=task_id, problem_statement=init_prompt + task["prompt"])
+            task_obj = NCriticsTask(id=task_id, problem_statement=init_prompt + task["prompt"])
             task_list.append(task_obj)
     task_list *= num_samples  # Duplicate tasks for the number of samples
     return task_list 
@@ -56,14 +56,14 @@ def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prom
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
 
-def generate_primary_responses(model_name: str, tasks: list[Task], max_length=256):
+def generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length=256):
     """Generate responses for a list of tasks."""
     with load_model(model_name) as (tokenizer, model):
         for task in tqdm(tasks, desc=f"Generating with {model_name}"):
             task.model_response = generate_response(model, tokenizer, prompt=task.prompt, max_length=max_length)
 
 
-def get_critiques(critic_models: list[str], tasks: list[Task]):
+def get_critiques(critic_models: list[str], tasks: list[NCriticsTask]):
     """Engage multiple LLMs to obtain an ensemble of critiques."""
      # clear previous critic responses 
     for task in tasks: 
@@ -84,7 +84,7 @@ def get_critiques(critic_models: list[str], tasks: list[Task]):
                 task.critic_responses.append(critique)
 
 
-def refine_prompts(tasks: list[Task]):
+def refine_prompts(tasks: list[NCriticsTask]):
     """Refine the primary model's response based on critiques."""
     for task in tqdm(tasks, desc=f"Refining prompts"): 
         refined_prompt = f"You were originally tasked with writing code to solve the following programming problem: \n\n{task.problem_statement}\n\n"
@@ -97,7 +97,7 @@ def refine_prompts(tasks: list[Task]):
         task.prompt = refined_prompt
 
 
-def evaluate_n_critics(tasks: list[Task], output_filename: str = "n_critics_results.jsonl"):
+def evaluate_n_critics(tasks: list[NCriticsTask], output_filename: str):
     """Evaluate the final responses of the primary model."""
     # write model inferences to a jsonl file
     if not output_filename.endswith(".jsonl"):
@@ -111,9 +111,26 @@ def evaluate_n_critics(tasks: list[Task], output_filename: str = "n_critics_resu
 
 
 
-def n_critics_algorithm(primary_model, critic_models: list, initial_prompt: str = "", max_iterations=4, num_samples=1):
-    """N-Critics algorithm implementation."""
-    # load Task objects from the problem set 
+def n_critics_algorithm(primary_model: str,  
+                        critic_models: list, 
+                        initial_prompt: str = "", 
+                        max_iterations: int = 4, 
+                        num_samples: int = 1,
+                        out_filename: str = "n_critics_results.jsonl") -> float:
+    """
+    N-Critics algorithm implementation.
+
+    :param primary_model (str): name of the primary model to use for generating responses. Must be valid HuggingFace model name.
+    :param critic_models (list): names of the critic models to use for critiques. Must be valid HuggingFace model names.
+    :param initial_prompt (str): initial prompt to use for generating responses. 
+    :param max_iterations (int): maximum number of refinement iterations. 
+    :param num_samples (int): number of samples to generate for each programming problem statement.
+    :param out_filename (str): name of the output file to save the results. Must be a valid JSONL filename, 
+    ending in .jsonl or with no file extension. 
+
+    :return (float): final pass@1 score of the primary model after all iterations.
+    """
+    # load NCriticsTask objects from the problem set 
     tasks = load_tasks(initial_prompt, num_samples)
 
     # Generate initial responses for each task
@@ -127,7 +144,7 @@ def n_critics_algorithm(primary_model, critic_models: list, initial_prompt: str 
         refine_prompts(tasks)
         generate_primary_responses(primary_model, tasks)
 
-    score = evaluate_n_critics(tasks)
+    score = evaluate_n_critics(tasks, out_filename)
     return score
 
 
