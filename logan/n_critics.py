@@ -4,6 +4,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import gc
 from contextlib import contextmanager
+import tqdm 
 
 from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
@@ -32,6 +33,9 @@ def load_model(model_name: str):
         trc = True
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir, trust_remote_code=trc)
     model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16, cache_dir=cache_dir, trust_remote_code=trc)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    model.config.pad_token_id = tokenizer.pad_token_id
     try:
         yield tokenizer, model
     finally:
@@ -40,7 +44,7 @@ def load_model(model_name: str):
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
-
+    
 
 def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prompt="", max_length=256):
     """Generate a response using the model and tokenizer."""
@@ -55,7 +59,7 @@ def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prom
 def generate_primary_responses(model_name: str, tasks: list[Task], max_length=256):
     """Generate responses for a list of tasks."""
     with load_model(model_name) as (tokenizer, model):
-        for task in tasks:
+        for task in tqdm(tasks, desc=f"Generating with {model_name}"):
             task.model_response = generate_response(model, tokenizer, prompt=task.prompt, max_length=max_length)
 
 
@@ -66,7 +70,7 @@ def get_critiques(critic_models: list[str], tasks: list[Task]):
         task.critic_responses = []
     for critic_name in critic_models:
         with load_model(critic_name) as (tokenizer, critic):
-            for task in tasks:
+            for task in tqdm(tasks, desc="Getting critiques"):
             # generate critique prompt
                 critique_prompt = f"Given the following problem statement:\n\n{task.problem_statement}\n\n"
                 critique_prompt += f"Please critique the following response:\n\n{task.model_response}\n\n"
@@ -82,7 +86,7 @@ def get_critiques(critic_models: list[str], tasks: list[Task]):
 
 def refine_prompts(tasks: list[Task]):
     """Refine the primary model's response based on critiques."""
-    for task in tasks: 
+    for task in tqdm(tasks, desc=f"Refining prompts"): 
         refined_prompt = f"You were originally tasked with writing code to solve the following programming problem: \n\n{task.problem_statement}\n\n"
         refined_prompt += f"You generated the following code: \n\n## YOUR CODE RESPONSE ##\n{task.model_response}\n\n"
         refined_prompt += f"Your answer received the following critiques: \n\n## CRITIQUES ##\n"
@@ -115,7 +119,10 @@ def n_critics_algorithm(primary_model, critic_models: list, initial_prompt: str 
     # Generate initial responses for each task
     generate_primary_responses(primary_model, tasks)
 
-    for i in range(len(max_iterations)):
+    for i in range(max_iterations):
+        print(['#']*50) 
+        print(f"Iteration {i+1} of {max_iterations}")
+        print(['#']*50)
         get_critiques(critic_models, tasks)
         refine_prompts(tasks)
         generate_primary_responses(primary_model, tasks)
