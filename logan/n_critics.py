@@ -35,6 +35,7 @@ def load_model(model_name: str):
     model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.bfloat16, cache_dir=cache_dir, trust_remote_code=trc)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
     model.generation_config.pad_token_id = tokenizer.pad_token_id
     try:
         yield tokenizer, model
@@ -48,7 +49,7 @@ def load_model(model_name: str):
 
 def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prompt: str | list = "", max_length=256):
     """Generate a response using the model and tokenizer."""
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)  
+    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=tokenizer.model_max_length).to(model.device)  
     with torch.no_grad():
         output = model.generate(
             **inputs, max_new_tokens=max_length, do_sample=True, top_p=0.9, temperature=0.7
@@ -131,6 +132,7 @@ def n_critics_algorithm(primary_model: str,
                         initial_prompt: str = "", 
                         max_iterations: int = 1, 
                         num_samples: int = 1,
+                        batch_size: int = 4,
                         out_filename: str = "n_critics_results.jsonl") -> float:
     """
     N-Critics algorithm implementation.
@@ -149,15 +151,15 @@ def n_critics_algorithm(primary_model: str,
     tasks = load_tasks(initial_prompt, num_samples)
 
     # Generate initial responses for each task
-    generate_primary_responses(primary_model, tasks)
+    generate_primary_responses(primary_model, tasks, batch_size=batch_size)
 
     for i in range(max_iterations):
         print('#'*50) 
         print(f"Iteration {i+1} of {max_iterations}")
         print('#'*50)
-        get_critiques(critic_models, tasks)
+        get_critiques(critic_models, tasks, batch_size=batch_size)
         refine_prompts(tasks)
-        generate_primary_responses(primary_model, tasks)
+        generate_primary_responses(primary_model, tasks, batch_size=batch_size)
 
     score = evaluate_n_critics(tasks, out_filename)
     return score
