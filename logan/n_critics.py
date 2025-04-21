@@ -62,15 +62,23 @@ def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prom
         raise ValueError("Prompt must be a string or a list of strings.")
 
 
-def generate_primary_responses(model_name: str, tasks: list[NCriticsTask], batch_size: int, max_length=256):
-    """Generate responses for a list of tasks."""
+def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length=256, batch_size=4):
+    """Generate responses with dynamic batch adjustment on out-of-memory error (OOM)."""
     with load_model(model_name) as (tokenizer, model):
-        for i in tqdm(range(0, len(tasks), batch_size), desc=f"Generating with {model_name}"):
-            batch = tasks[i:i + batch_size]
-            prompts = [task.prompt for task in batch]
-            responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
-            for task, response in zip(batch, responses):
-                task.model_response = response
+        i = 0
+        while i < len(tasks):
+            try:
+                end = min(i + batch_size, len(tasks))
+                batch = tasks[i:end]
+                prompts = [task.prompt for task in batch]
+                responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
+                for task, response in zip(batch, responses):
+                    task.model_response = response
+                i += batch_size
+            except torch.cuda.OutOfMemoryError:
+                print(f"OOM at batch starting index {i}. Reducing batch size from {batch_size} to {batch_size // 2}")
+                torch.cuda.empty_cache()
+                batch_size = max(1, batch_size // 2)
 
 
 def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_size: int):
@@ -151,7 +159,7 @@ def n_critics_algorithm(primary_model: str,
     tasks = load_tasks(initial_prompt, num_samples)
 
     # Generate initial responses for each task
-    generate_primary_responses(primary_model, tasks, batch_size=batch_size)
+    safe_generate_primary_responses(primary_model, tasks, batch_size=batch_size)
 
     for i in range(max_iterations):
         print('#'*50) 
@@ -159,7 +167,7 @@ def n_critics_algorithm(primary_model: str,
         print('#'*50)
         get_critiques(critic_models, tasks, batch_size=batch_size)
         refine_prompts(tasks)
-        generate_primary_responses(primary_model, tasks, batch_size=batch_size)
+        safe_generate_primary_responses(primary_model, tasks, batch_size=batch_size)
 
     score = evaluate_n_critics(tasks, out_filename)
     return score
