@@ -4,11 +4,11 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import gc
 from contextlib import contextmanager
-import tqdm 
+from tqdm import tqdm 
 
 from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
-from logan.ncriticstask import NCriticsTask
+from ncriticstask import NCriticsTask
 
 def load_tasks(init_prompt = "", num_samples=1) -> list[NCriticsTask]:
     """Initializes a list of NCriticsTask objects from the problem set."""
@@ -35,7 +35,7 @@ def load_model(model_name: str):
     model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16, cache_dir=cache_dir, trust_remote_code=trc)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-    model.config.pad_token_id = tokenizer.pad_token_id
+    model.generation_config.pad_token_id = tokenizer.pad_token_id
     try:
         yield tokenizer, model
     finally:
@@ -150,8 +150,22 @@ def n_critics_algorithm(primary_model: str,
 
 # Example usage
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run the N-Critics algorithm.")
+    parser.add_argument("--max_iterations", type=int, default=1, help="Number of refinement iterations. Enter 1-8.")
+    parser.add_argument("--num_samples", type=int, default=1, help="Number of samples per problem. Enter 1-10.")
+    parser.add_argument("--out_filename", type=str, default="n_critics_results.jsonl", help="Output filename. Must have .jsonl extension or no extension.")
+    args = parser.parse_args()
+    
+    if args.max_iterations < 1 or args.max_iterations > 8: 
+      raise ValueError("Value of max_iterations must be between 1 and 8.")
+    
+    if args.num_samples < 1 or args.num_samples > 10: 
+      raise ValueError("Value of num_samples must be between 1 and 8.")
+    
     primary_model = "deepseek-ai/Deepseek-Coder-V2-Lite-Instruct"
-    critic_models = ["gemma", "llama3"]
+    critic_models = ["google/gemma-3-12b-it", "llama3"]
     initial_prompt = "Complete the following programming problem: \n"
     problems = read_problems()
 
