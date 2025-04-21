@@ -32,7 +32,7 @@ def load_model(model_name: str):
     if "deepseek" in model_name.lower():
         trc = True
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir, trust_remote_code=trc)
-    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16, cache_dir=cache_dir, trust_remote_code=trc)
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.bfloat16, cache_dir=cache_dir, trust_remote_code=trc)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     model.generation_config.pad_token_id = tokenizer.pad_token_id
@@ -114,7 +114,7 @@ def evaluate_n_critics(tasks: list[NCriticsTask], output_filename: str):
 def n_critics_algorithm(primary_model: str,  
                         critic_models: list, 
                         initial_prompt: str = "", 
-                        max_iterations: int = 4, 
+                        max_iterations: int = 1, 
                         num_samples: int = 1,
                         out_filename: str = "n_critics_results.jsonl") -> float:
     """
@@ -137,9 +137,9 @@ def n_critics_algorithm(primary_model: str,
     generate_primary_responses(primary_model, tasks)
 
     for i in range(max_iterations):
-        print(['#']*50) 
+        print('#'*50) 
         print(f"Iteration {i+1} of {max_iterations}")
-        print(['#']*50)
+        print('#'*50)
         get_critiques(critic_models, tasks)
         refine_prompts(tasks)
         generate_primary_responses(primary_model, tasks)
@@ -165,13 +165,14 @@ if __name__ == "__main__":
       raise ValueError("Value of num_samples must be between 1 and 8.")
     
     primary_model = "deepseek-ai/Deepseek-Coder-V2-Lite-Instruct"
-    critic_models = ["google/gemma-3-12b-it", "llama3"]
+    critic_models = ["google/gemma-3-12b-it", "meta-llama/Llama-3.2-3B-Instruct"]
     initial_prompt = "Complete the following programming problem: \n"
     problems = read_problems()
 
     score = n_critics_algorithm(primary_model, 
                                 critic_models, 
                                 initial_prompt=initial_prompt, 
-                                max_iterations=4,
-                                num_samples=1)
+                                max_iterations=args.max_iterations,
+                                num_samples=args.num_samples,
+                                out_filename=args.out_filename)
     print(f"\n Final Pass@1 Score: {score:.2%}")
