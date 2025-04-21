@@ -46,42 +46,57 @@ def load_model(model_name: str):
             torch.cuda.empty_cache()
     
 
-def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prompt="", max_length=256):
+def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prompt: str | list = "", max_length=256):
     """Generate a response using the model and tokenizer."""
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)  
     with torch.no_grad():
         output = model.generate(
             **inputs, max_new_tokens=max_length, do_sample=True, top_p=0.9, temperature=0.7
         )
-    return tokenizer.decode(output[0], skip_special_tokens=True)
+    if type(prompt) == str:
+        return tokenizer.decode(output[0], skip_special_tokens=True)
+    elif type(prompt) == list: 
+        return tokenizer.batch_decode(output, skip_special_tokens=True)
+    else:
+        raise ValueError("Prompt must be a string or a list of strings.")
 
 
-def generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length=256):
+def generate_primary_responses(model_name: str, tasks: list[NCriticsTask], batch_size: int, max_length=256):
     """Generate responses for a list of tasks."""
     with load_model(model_name) as (tokenizer, model):
-        for task in tqdm(tasks, desc=f"Generating with {model_name}"):
-            task.model_response = generate_response(model, tokenizer, prompt=task.prompt, max_length=max_length)
+        for i in tqdm(range(0, len(tasks), batch_size), desc=f"Generating with {model_name}"):
+            batch = tasks[i:i + batch_size]
+            prompts = [task.prompt for task in batch]
+            responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
+            for task, response in zip(batch, responses):
+                task.model_response = response
 
 
-def get_critiques(critic_models: list[str], tasks: list[NCriticsTask]):
+def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_size: int):
     """Engage multiple LLMs to obtain an ensemble of critiques."""
      # clear previous critic responses 
     for task in tasks: 
         task.critic_responses = []
     for critic_name in critic_models:
         with load_model(critic_name) as (tokenizer, critic):
-            for task in tqdm(tasks, desc="Getting critiques"):
-            # generate critique prompt
-                critique_prompt = f"Given the following problem statement:\n\n{task.problem_statement}\n\n"
-                critique_prompt += f"Please critique the following response:\n\n{task.model_response}\n\n"
-                critique_prompt += "In five sentences or less, address the following:\n"
-                critique_prompt += "1. Does the response correctly and fully address the problem given in the prompt?\n"
-                critique_prompt += "2. Is the response time-optimal?\n"
-                critique_prompt += "3. Is the response memory-optimal?\n"
-                critique_prompt += "If the response is fully satisfactory, print nothing but the following line: 'The response is fully satisfactory.'\n\n"
+            for i in tqdm(range(0, len(tasks), batch_size), desc="Getting critiques"):
+                batch = tasks[i:i + batch_size]
+                critique_prompts = []
+                for task in batch:
+                    # generate critique prompt
+                    critique_prompt = f"Given the following problem statement:\n\n{task.problem_statement}\n\n"
+                    critique_prompt += f"Please critique the following response:\n\n{task.model_response}\n\n"
+                    critique_prompt += "In five sentences or less, address the following:\n"
+                    critique_prompt += "1. Does the response correctly and fully address the problem given in the prompt?\n"
+                    critique_prompt += "2. Is the response time-optimal?\n"
+                    critique_prompt += "3. Is the response memory-optimal?\n"
+                    critique_prompt += "If the response is fully satisfactory, print nothing but the following line: 'The response is fully satisfactory.'\n\n"
+                    critique_prompts.append(critique_prompt)
                 # generate critic responses 
-                critique = generate_response(critic, tokenizer, prompt=critique_prompt)
-                task.critic_responses.append(critique)
+                critique = generate_response(critic, tokenizer, prompt=critique_prompts)
+                # add to task object 
+                for batch, response in zip(batch, critique):
+                    task.critic_responses.append(response)
 
 
 def refine_prompts(tasks: list[NCriticsTask]):
