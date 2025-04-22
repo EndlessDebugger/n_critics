@@ -5,15 +5,17 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import gc
 from contextlib import contextmanager
 from tqdm import tqdm 
+from itertools import islice
 
 from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
 from ncriticstask import NCriticsTask
 
-def load_tasks(init_prompt = "", num_samples=1) -> list[NCriticsTask]:
+def load_tasks(init_prompt = "Don't include comments or any description. Just code.", num_samples=1) -> list[NCriticsTask]:
     """Initializes a list of NCriticsTask objects from the problem set."""
     task_list = []
     problems = read_problems()
+    problems = dict(islice(problems.items(), 10))  # DEBUG
     for task_id, task in problems.items():
         for _ in range(num_samples):
             task_obj = NCriticsTask(id=task_id, problem_statement=init_prompt + task["prompt"])
@@ -49,7 +51,8 @@ def load_model(model_name: str):
 
 def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prompt: str | list = "", max_length=256):
     """Generate a response using the model and tokenizer."""
-    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=tokenizer.model_max_length).to(model.device)  
+    safe_max_length = 8192
+    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=safe_max_length).to(model.device)  
     with torch.no_grad():
         output = model.generate(
             **inputs, max_new_tokens=max_length, do_sample=True, top_p=0.9, temperature=0.7
@@ -62,23 +65,42 @@ def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prom
         raise ValueError("Prompt must be a string or a list of strings.")
 
 
-def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length=256, batch_size=4):
-    """Generate responses with dynamic batch adjustment on out-of-memory error (OOM)."""
+def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 256, batch_size: int = 4):
+    """Generate responses with dynamic batch adjustment on OOM."""
     with load_model(model_name) as (tokenizer, model):
+        total_tasks = len(tasks)
         i = 0
-        while i < len(tasks):
-            try:
-                end = min(i + batch_size, len(tasks))
-                batch = tasks[i:end]
-                prompts = [task.prompt for task in batch]
-                responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
-                for task, response in zip(batch, responses):
-                    task.model_response = response
-                i += batch_size
-            except torch.cuda.OutOfMemoryError:
-                print(f"OOM at batch starting index {i}. Reducing batch size from {batch_size} to {batch_size // 2}")
-                torch.cuda.empty_cache()
-                batch_size = max(1, batch_size // 2)
+        
+        # Initialize tqdm progress bar
+        with tqdm(total=total_tasks, desc="Generating responses") as pbar:
+            while i < total_tasks:
+                prompts = []
+                try:
+                    end = min(i + batch_size, total_tasks)
+                    batch = tasks[i:end]
+                    prompts = [task.prompt for task in batch]
+                    responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
+                    
+                    # Assign responses to tasks and update progress
+                    for task, response in zip(batch, responses):
+                        task.model_response = response
+                    i += batch_size
+                    
+                    # Update tqdm progress bar
+                    pbar.update(batch_size)
+                    
+                    # Clean up after successful batch
+                    torch.cuda.empty_cache()
+                    gc.collect()
+                    
+                except torch.cuda.OutOfMemoryError:
+                    if batch_size <= 1: 
+                        raise torch.cuda.OutOfMemoryError(f"safe_generate_primary_response failed even with batch size = {batch_size}. Prompt lengths were {[len(prompt) for prompt in prompts]}")
+                    else: 
+                        print(f"OOM at batch starting index {i}. Reducing batch size from {batch_size} to {batch_size // 2}")
+                        torch.cuda.empty_cache()
+                        gc.collect()
+                        batch_size = max(1, batch_size // 2)
 
 
 def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_size: int):
@@ -95,7 +117,7 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
                     # generate critique prompt
                     critique_prompt = f"Given the following problem statement:\n\n{task.problem_statement}\n\n"
                     critique_prompt += f"Please critique the following response:\n\n{task.model_response}\n\n"
-                    critique_prompt += "In five sentences or less, address the following:\n"
+                    critique_prompt += "In 25 words or less, address the following:\n"
                     critique_prompt += "1. Does the response correctly and fully address the problem given in the prompt?\n"
                     critique_prompt += "2. Is the response time-optimal?\n"
                     critique_prompt += "3. Is the response memory-optimal?\n"
@@ -111,13 +133,13 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
 def refine_prompts(tasks: list[NCriticsTask]):
     """Refine the primary model's response based on critiques."""
     for task in tqdm(tasks, desc=f"Refining prompts"): 
-        refined_prompt = f"You were originally tasked with writing code to solve the following programming problem: \n\n{task.problem_statement}\n\n"
-        refined_prompt += f"You generated the following code: \n\n## YOUR CODE RESPONSE ##\n{task.model_response}\n\n"
-        refined_prompt += f"Your answer received the following critiques: \n\n## CRITIQUES ##\n"
+        refined_prompt = f"Given the problem: \n\n{task.problem_statement}\n\n"
+        refined_prompt += f"Your answer was: \n\n## YOUR CODE RESPONSE ##\n{task.model_response}\n\n"
+        refined_prompt += f"Critiques: \n\n## CRITIQUES ##\n"
         for critique in task.critic_responses:
             refined_prompt += critique + '\n'
         refined_prompt += '\n'
-        refined_prompt += "Update your response based on the critiques."
+        refined_prompt += "Update your response. No comments."
         task.prompt = refined_prompt
 
 
@@ -192,7 +214,6 @@ if __name__ == "__main__":
     primary_model = "deepseek-ai/Deepseek-Coder-V2-Lite-Instruct"
     critic_models = ["google/gemma-3-12b-it", "meta-llama/Llama-3.2-3B-Instruct"]
     initial_prompt = "Complete the following programming problem: \n"
-    problems = read_problems()
 
     score = n_critics_algorithm(primary_model, 
                                 critic_models, 
