@@ -1,7 +1,7 @@
 import os
 import json
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer, pipeline, Pipeline
 import gc
 from contextlib import contextmanager
 from tqdm import tqdm 
@@ -27,7 +27,7 @@ def load_tasks(init_prompt = "Don't include comments or any description. Just co
 
 @contextmanager
 def load_model(model_name: str):
-    """Load model temporarily on GPU with FP16, unload after use."""
+    """Load model temporarily on GPU with BFloat16, unload after use."""
     cache_dir = os.path.join(os.path.dirname(__file__), ".cache")
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
@@ -35,40 +35,47 @@ def load_model(model_name: str):
     if "deepseek" in model_name.lower():
         trc = True
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir, trust_remote_code=trc)
-    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.bfloat16, cache_dir=cache_dir, trust_remote_code=trc)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
-    model.generation_config.pad_token_id = tokenizer.pad_token_id
+    pipe = pipeline("text-generation", 
+                    model=model_name, 
+                    tokenizer=tokenizer,
+                    device_map="auto", 
+                    torch_dtype=torch.bfloat16, 
+                    cache_dir=cache_dir, 
+                    trust_remote_code=trc)
     try:
-        yield tokenizer, model
+        yield pipe
     finally:
-        model.cpu()
-        del model
+        pipe.cpu()
+        del pipe
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
     
 
-def generate_response(model: AutoModelForCausalLM, tokenizer:AutoTokenizer, prompt: str | list = "", max_length=256):
-    """Generate a response using the model and tokenizer."""
+def generate_response(pipe: Pipeline, prompts: list, max_length=256):
+    """Generate a response using the pipeline."""
     safe_max_length = 8192
-    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=safe_max_length).to(model.device)  
-    with torch.no_grad():
-        output = model.generate(
-            **inputs, max_new_tokens=max_length, do_sample=True, top_p=0.9, temperature=0.7
-        )
-    if type(prompt) == str:
-        return tokenizer.decode(output[0], skip_special_tokens=True)
-    elif type(prompt) == list: 
-        return tokenizer.batch_decode(output, skip_special_tokens=True)
-    else:
-        raise ValueError("Prompt must be a string or a list of strings.")
+    responses = pipe(
+        prompts,
+        max_length=safe_max_length - max_length, # prompt + new output must be less than safe_max_length
+        max_new_tokens=256,
+        do_sample=False,
+        truncation=True,
+        padding=True,
+        return_full_text=False
+    )
+
+    # Extract just the strings:
+    responses = [r['generated_text'] for r in responses]
+    return responses
 
 
 def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 256, batch_size: int = 4):
     """Generate responses with dynamic batch adjustment on OOM."""
-    with load_model(model_name) as (tokenizer, model):
+    with load_model(model_name) as pipe:
         total_tasks = len(tasks)
         i = 0
         
@@ -81,7 +88,7 @@ def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], 
                     batch = tasks[i:end]
                     prompts = [task.prompt for task in batch]
                     all_prompts.extend(prompts) # DEBUG
-                    responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
+                    responses = generate_response(pipe, prompts=prompts, max_length=max_length)
                     
                     # Assign responses to tasks and update progress
                     for task, response in zip(batch, responses):
@@ -99,7 +106,7 @@ def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], 
                     if batch_size <= 1: 
                         with open('example_NCriticsTask.pkl', 'wb') as f:
                             pickle.dump(tasks[i], f)
-                        raise torch.cuda.OutOfMemoryError(f"safe_generate_primary_response failed even with batch size = {batch_size}. Prompt lengths were {[len(prompt) for prompt in all_prompts]}. \n\nFirst 1000 chars of last prompt: \n{all_prompts[-1][:1000]}")
+                        raise torch.cuda.OutOfMemoryError(f"safe_generate_primary_response failed even with batch size = {batch_size}. Prompt lengths were {[len(prompt) for prompt in all_prompts]}.")
                     else: 
                         print(f"OOM at batch starting index {i}. Reducing batch size from {batch_size} to {batch_size // 2}")
                         torch.cuda.empty_cache()
@@ -113,7 +120,7 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
     for task in tasks: 
         task.critic_responses = []
     for critic_name in critic_models:
-        with load_model(critic_name) as (tokenizer, critic):
+        with load_model(critic_name) as pipe:
             for i in tqdm(range(0, len(tasks), batch_size), desc="Getting critiques"):
                 batch = tasks[i:i + batch_size]
                 critique_prompts = []
@@ -121,14 +128,14 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
                     # generate critique prompt
                     critique_prompt = f"Given the following problem statement:\n\n{task.problem_statement}\n\n"
                     critique_prompt += f"Please critique the following response:\n\n{task.model_response}\n\n"
-                    critique_prompt += "In 25 words or less, address the following:\n"
+                    critique_prompt += "In 5 sentences or less, address the following:\n"
                     critique_prompt += "1. Does the response correctly and fully address the problem given in the prompt?\n"
                     critique_prompt += "2. Is the response time-optimal?\n"
                     critique_prompt += "3. Is the response memory-optimal?\n"
                     critique_prompt += "If the response is fully satisfactory, print nothing but the following line: 'The response is fully satisfactory.'\n\n"
                     critique_prompts.append(critique_prompt)
                 # generate critic responses 
-                critique = generate_response(critic, tokenizer, prompt=critique_prompts)
+                critique = generate_response(pipe, prompts=critique_prompts)
                 # add to task object 
                 for batch, response in zip(batch, critique):
                     task.critic_responses.append(response)
