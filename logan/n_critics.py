@@ -6,6 +6,7 @@ import gc
 from contextlib import contextmanager
 from tqdm import tqdm 
 from itertools import islice
+import pickle
 
 from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
@@ -73,12 +74,13 @@ def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], 
         
         # Initialize tqdm progress bar
         with tqdm(total=total_tasks, desc="Generating responses") as pbar:
+            all_prompts = [] # DEBUG
             while i < total_tasks:
-                prompts = []
                 try:
                     end = min(i + batch_size, total_tasks)
                     batch = tasks[i:end]
                     prompts = [task.prompt for task in batch]
+                    all_prompts.extend(prompts) # DEBUG
                     responses = generate_response(model, tokenizer, prompt=prompts, max_length=max_length)
                     
                     # Assign responses to tasks and update progress
@@ -95,7 +97,9 @@ def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], 
                     
                 except torch.cuda.OutOfMemoryError:
                     if batch_size <= 1: 
-                        raise torch.cuda.OutOfMemoryError(f"safe_generate_primary_response failed even with batch size = {batch_size}. Prompt lengths were {[len(prompt) for prompt in prompts]}")
+                        with open('example_NCriticsTask.pkl', 'wb') as f:
+                            pickle.dump(tasks[i], f)
+                        raise torch.cuda.OutOfMemoryError(f"safe_generate_primary_response failed even with batch size = {batch_size}. Prompt lengths were {[len(prompt) for prompt in all_prompts]}. \n\nFirst 1000 chars of last prompt: \n{all_prompts[-1][:1000]}")
                     else: 
                         print(f"OOM at batch starting index {i}. Reducing batch size from {batch_size} to {batch_size // 2}")
                         torch.cuda.empty_cache()

@@ -1,7 +1,7 @@
 #!/bin/sh 
 #SBATCH --gres=gpu:a100:1              	# Can request 1-4 t4, 1-2 a100, or 1-2 rtx
 #SBATCH --partition=gpu              	# Request the GPU partition/queue
-#SBATCH --time=10:00:00 		        # Set the max runtime, in wallclock hours
+#SBATCH --time=00:15:00 		        # Set the max runtime, in wallclock hours
 #SBATCH --job-name=generate_image_job	# Job name
 #SBATCH --mem=200G 			# Memory allocation per node 
 #SBATCH --output=std.%j			# Output file names for stdout and stderr
