@@ -17,7 +17,7 @@ from ncriticstask import NCriticsTask
 delta_t = time.time() - start_time
 print(f"Completed imports in {delta_t} seconds.")
 
-def load_tasks(init_prompt = "Don't include comments, test cases, or any description. Just code.", num_samples=1) -> list[NCriticsTask]:
+def load_tasks(init_prompt = "DO NOT include comments, test cases, or any description. ONLY RUNNABLE CODE.", num_samples=1) -> list[NCriticsTask]:
     """Initializes a list of NCriticsTask objects from the problem set."""
     task_list = []
     problems = read_problems()
@@ -57,12 +57,15 @@ def load_model(model_name: str):
 
 
 def extract_between_triple_quotes(text: str):
-    start = text.find("```python") + 9  # Find start pos after first set of triple quotes + python\n. Model includes this to indicate type of code ig.
+    start = text.find("```") + 3  # Find start pos after first set of triple quotes + python\n. Model includes this to indicate type of code ig.
     end = text.find("```", start)  # Find end pos at next set of triple quotes
-    return text[start:end].strip()  # Remove whitespace
+    new_text = text[start:end].strip()  # Remove whitespace
+    if new_text.startswith("python"):
+        new_text = new_text[6:]
+    return new_text.strip()
     
 
-def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=512):
+def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=1024):
 
     chat_prompts = [[{"role": "user", "content": p}] for p in prompts]
     
@@ -95,7 +98,7 @@ def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, pro
     return responses
 
 
-def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 256, batch_size: int = 4):
+def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 1024, batch_size: int = 4):
     """Generate responses with dynamic batch adjustment on OOM."""
     with load_model(model_name) as (model, tokenizer):
         total_tasks = len(tasks)
@@ -154,10 +157,11 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
                     critique_prompt += "1. Does the response correctly and fully address the problem given in the prompt?\n"
                     critique_prompt += "2. Is the response time-optimal?\n"
                     critique_prompt += "3. Is the response memory-optimal?\n"
+                    critique_prompt += "4. Does the output have any syntax errors?\n"
                     critique_prompt += "If the response is fully satisfactory, print nothing but the following line: 'The response is fully satisfactory.'\n\n"
                     critique_prompts.append(critique_prompt)
                 # generate critic responses 
-                critique = generate_response(model, tokenizer, prompts=critique_prompts)
+                critique = generate_response(model, tokenizer, prompts=critique_prompts, max_length=256)
                 # add to task object 
                 for batch, response in zip(batch, critique):
                     task.critic_responses.append(response)
@@ -172,7 +176,7 @@ def refine_prompts(tasks: list[NCriticsTask]):
         for critique in task.critic_responses:
             refined_prompt += critique + '\n'
         refined_prompt += '\n'
-        refined_prompt += "Update your response. No comments, no test cases, no explanations, provide ONLY runnable code and nothing else."
+        refined_prompt += "Update your response. DO NOT INCLUDE comments, test cases, explanations. Provide ONLY runnable code!"
         task.prompt = refined_prompt
 
 
@@ -226,6 +230,10 @@ def n_critics_algorithm(primary_model: str,
     # evaluation files 
     eval_filenames = []
 
+    # include initial responses, with no critiques 
+    filename = write_to_jsonl(tasks, 0)
+    eval_filenames.append(filename) 
+
     for i in range(max_iterations):
         print('#'*50) 
         print(f"Iteration {i+1} of {max_iterations}")
@@ -233,7 +241,7 @@ def n_critics_algorithm(primary_model: str,
         get_critiques(critic_models, tasks, batch_size=batch_size)
         refine_prompts(tasks)
         safe_generate_primary_responses(primary_model, tasks, batch_size=batch_size)
-        filename = write_to_jsonl(tasks, i)
+        filename = write_to_jsonl(tasks, i+1)
         eval_filenames.append(filename) 
 
     scores = [evaluate_n_critics(fname) for fname in eval_filenames]
@@ -264,6 +272,9 @@ if __name__ == "__main__":
                                 initial_prompt=initial_prompt, 
                                 max_iterations=args.max_iterations,
                                 num_samples=args.num_samples)
-    print("\n Final Pass@1 Scores: ")
-    for i, score in enumerate(scores):
-        print(f"iteration {i}: {score:.2f}")
+    scores_filename = os.path.join("results", "pass1scores.txt")
+    with open(scores_filename, "w") as file:
+        print("\n Final Pass@1 Scores: ")
+        for i, score in enumerate(scores):
+            print(f"iteration {i}: {score:.2f}")
+            file.write(f"iteration {i}: {score:.2f}")
