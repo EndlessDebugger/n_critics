@@ -1,13 +1,12 @@
 #!/bin/sh 
 #SBATCH --gres=gpu:a100:1              	# Can request 1-4 t4, 1-2 a100, or 1-2 rtx
 #SBATCH --partition=gpu              	# Request the GPU partition/queue
-#SBATCH --time=00:15:00 		        # Set the max runtime, in wallclock hours
+#SBATCH --time=04:00:00		        # Set the max runtime, in wallclock hours
 #SBATCH --job-name=generate_image_job	# Job name
-#SBATCH --mem=200G 			# Memory allocation per node 
-#SBATCH --output=std.%j			# Output file names for stdout and stderr
-#SBATCH --ntasks=32 			# Total number of tasks/CPU cores (for HPRC recommended method, this is = # CPUs
-#SBATCH --ntasks-per-node=32		# Tasks (CPUs) per node
-#SBATCH --output=error_log.%j
+#SBATCH --mem=150G 			# Memory allocation per node 
+#SBATCH --ntasks=24 			# Total number of tasks/CPU cores (for HPRC recommended method, this is = # CPUs
+#SBATCH --ntasks-per-node=24		# Tasks (CPUs) per node
+#SBATCH --output=error_log.%j		# output filenames for stdout and stderr
 #Total number of compute nodes = # CPUs requested / CPUs per node
 #So 4 CPUs requested divided by 4 CPUs per node = 1 compute node. 
 

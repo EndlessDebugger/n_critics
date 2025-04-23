@@ -1,7 +1,10 @@
+import time 
+start_time = time.time()
+print("Beginning imports...")
 import os
 import json
 import torch
-from transformers import AutoTokenizer, pipeline, Pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer
 import gc
 from contextlib import contextmanager
 from tqdm import tqdm 
@@ -11,12 +14,14 @@ import pickle
 from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
 from ncriticstask import NCriticsTask
+delta_t = time.time() - start_time
+print(f"Completed imports in {delta_t} seconds.")
 
-def load_tasks(init_prompt = "Don't include comments or any description. Just code.", num_samples=1) -> list[NCriticsTask]:
+def load_tasks(init_prompt = "Don't include comments, test cases, or any description. Just code.", num_samples=1) -> list[NCriticsTask]:
     """Initializes a list of NCriticsTask objects from the problem set."""
     task_list = []
     problems = read_problems()
-    problems = dict(islice(problems.items(), 10))  # DEBUG
+    # problems = dict(islice(problems.items(), 8))  # DEBUG
     for task_id, task in problems.items():
         for _ in range(num_samples):
             task_obj = NCriticsTask(id=task_id, problem_statement=init_prompt + task["prompt"])
@@ -27,7 +32,7 @@ def load_tasks(init_prompt = "Don't include comments or any description. Just co
 
 @contextmanager
 def load_model(model_name: str):
-    """Load model temporarily on GPU with BFloat16, unload after use."""
+    """Load model temporarily on GPU with FP16, unload after use."""
     cache_dir = os.path.join(os.path.dirname(__file__), ".cache")
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
@@ -35,47 +40,56 @@ def load_model(model_name: str):
     if "deepseek" in model_name.lower():
         trc = True
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir, trust_remote_code=trc)
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.bfloat16, cache_dir=cache_dir, trust_remote_code=trc)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
-    pipe = pipeline("text-generation", 
-                    model=model_name, 
-                    tokenizer=tokenizer,
-                    device_map="auto", 
-                    torch_dtype=torch.bfloat16, 
-                    cache_dir=cache_dir, 
-                    trust_remote_code=trc)
+    model.generation_config.pad_token_id = tokenizer.pad_token_id
     try:
-        yield pipe
+        yield model, tokenizer
     finally:
-        pipe.cpu()
-        del pipe
+        model.cpu()
+        del model
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
     
 
-def generate_response(pipe: Pipeline, prompts: list, max_length=256):
-    """Generate a response using the pipeline."""
-    safe_max_length = 8192
-    responses = pipe(
-        prompts,
-        max_length=safe_max_length - max_length, # prompt + new output must be less than safe_max_length
-        max_new_tokens=256,
-        do_sample=False,
-        truncation=True,
-        padding=True,
-        return_full_text=False
-    )
+def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=256):
 
-    # Extract just the strings:
-    responses = [r['generated_text'] for r in responses]
+    chat_prompts = [{"role": "user", "content": p} for p in prompts]
+    
+    inputs = tokenizer.apply_chat_template(
+        chat_prompts,
+        add_generation_prompt=True,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=8192  # TODO: change depending on model type instead of hard-coding
+    ).to(model.device)
+
+    with torch.no_grad():
+        output_ids = model.generate(
+            **inputs,
+            max_new_tokens=max_length,
+            do_sample=False,
+            top_p=None,
+            top_k=None,
+            temperature=None,
+            use_cache=True  # speed boost
+        )
+
+    input_lens = inputs.shape[1]  # inputs is of shape [batch_size, sequence_len], sequence_len same for all bc of padding. So this is an integer
+    responses = [
+        tokenizer.decode(output[input_lens:], skip_special_tokens=True)  # get all model outputs with inputs removed 
+        for output in output_ids
+    ]
     return responses
 
 
 def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 256, batch_size: int = 4):
     """Generate responses with dynamic batch adjustment on OOM."""
-    with load_model(model_name) as pipe:
+    with load_model(model_name) as (model, tokenizer):
         total_tasks = len(tasks)
         i = 0
         
@@ -88,7 +102,7 @@ def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], 
                     batch = tasks[i:end]
                     prompts = [task.prompt for task in batch]
                     all_prompts.extend(prompts) # DEBUG
-                    responses = generate_response(pipe, prompts=prompts, max_length=max_length)
+                    responses = generate_response(model, tokenizer, prompts=prompts, max_length=max_length)
                     
                     # Assign responses to tasks and update progress
                     for task, response in zip(batch, responses):
@@ -120,7 +134,7 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
     for task in tasks: 
         task.critic_responses = []
     for critic_name in critic_models:
-        with load_model(critic_name) as pipe:
+        with load_model(critic_name) as (model, tokenizer):
             for i in tqdm(range(0, len(tasks), batch_size), desc="Getting critiques"):
                 batch = tasks[i:i + batch_size]
                 critique_prompts = []
@@ -135,7 +149,7 @@ def get_critiques(critic_models: list[str], tasks: list[NCriticsTask], batch_siz
                     critique_prompt += "If the response is fully satisfactory, print nothing but the following line: 'The response is fully satisfactory.'\n\n"
                     critique_prompts.append(critique_prompt)
                 # generate critic responses 
-                critique = generate_response(pipe, prompts=critique_prompts)
+                critique = generate_response(model, tokenizer, prompts=critique_prompts)
                 # add to task object 
                 for batch, response in zip(batch, critique):
                     task.critic_responses.append(response)
@@ -150,22 +164,31 @@ def refine_prompts(tasks: list[NCriticsTask]):
         for critique in task.critic_responses:
             refined_prompt += critique + '\n'
         refined_prompt += '\n'
-        refined_prompt += "Update your response. No comments."
+        refined_prompt += "Update your response. No comments, no test cases, no explanations, provide ONLY runnable code and nothing else."
         task.prompt = refined_prompt
 
 
-def evaluate_n_critics(tasks: list[NCriticsTask], output_filename: str):
+def evaluate_n_critics(output_filename: str):
     """Evaluate the final responses of the primary model."""
-    # write model inferences to a jsonl file
-    if not output_filename.endswith(".jsonl"):
-        output_filename += ".jsonl"
-    results_as_dict_list = [task.as_dict() for task in tasks]
-    write_jsonl(output_filename, results_as_dict_list)
+    # Prevent transformers' parallelization from messing up human-eval's parallelization
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+    
     # evaluate the model inferences using the HumanEval evaluation script
     results = evaluate_functional_correctness(sample_file=output_filename)
     pass_at_1 = results["pass@1"]
     return pass_at_1
+    
 
+def write_to_jsonl(tasks: list[NCriticsTask], iter_num: int):
+    # write model inferences to a jsonl file
+    folder = "results"
+    if not os.path.exists(folder):
+        os.mkdir(folder)
+    fname = "iter_" + str(iter_num) + ".jsonl"
+    out_path = os.path.join(folder, fname) 
+    results_as_dict_list = [task.as_dict() for task in tasks]
+    write_jsonl(out_path, results_as_dict_list)
+    return out_path
 
 
 def n_critics_algorithm(primary_model: str,  
@@ -193,6 +216,9 @@ def n_critics_algorithm(primary_model: str,
 
     # Generate initial responses for each task
     safe_generate_primary_responses(primary_model, tasks, batch_size=batch_size)
+    
+    # evaluation files 
+    eval_filenames = []
 
     for i in range(max_iterations):
         print('#'*50) 
@@ -201,9 +227,11 @@ def n_critics_algorithm(primary_model: str,
         get_critiques(critic_models, tasks, batch_size=batch_size)
         refine_prompts(tasks)
         safe_generate_primary_responses(primary_model, tasks, batch_size=batch_size)
+        filename = write_to_jsonl(tasks, i)
+        eval_filenames.append(filename) 
 
-    score = evaluate_n_critics(tasks, out_filename)
-    return score
+    scores = [evaluate_n_critics(fname) for fname in eval_filenames]
+    return scores
 
 
 # Example usage
@@ -226,10 +254,12 @@ if __name__ == "__main__":
     critic_models = ["google/gemma-3-12b-it", "meta-llama/Llama-3.2-3B-Instruct"]
     initial_prompt = "Complete the following programming problem: \n"
 
-    score = n_critics_algorithm(primary_model, 
+    scores = n_critics_algorithm(primary_model, 
                                 critic_models, 
                                 initial_prompt=initial_prompt, 
                                 max_iterations=args.max_iterations,
                                 num_samples=args.num_samples,
                                 out_filename=args.out_filename)
-    print(f"\n Final Pass@1 Score: {score:.2%}")
+    print("\n Final Pass@1 Scores: ")
+    for i, score in enumerate(scores):
+        print(f"iteration {i}: {score:.2f}")
