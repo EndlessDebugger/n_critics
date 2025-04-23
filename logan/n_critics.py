@@ -42,7 +42,8 @@ def load_model(model_name: str):
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir, trust_remote_code=trc)
     model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.bfloat16, cache_dir=cache_dir, trust_remote_code=trc)
     if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+        model.resize_token_embeddings(len(tokenizer))
     tokenizer.padding_side = "left"
     model.generation_config.pad_token_id = tokenizer.pad_token_id
     try:
@@ -53,11 +54,17 @@ def load_model(model_name: str):
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+
+
+def extract_between_triple_quotes(text: str):
+    start = text.find("```python") + 9  # Find start pos after first set of triple quotes + python\n. Model includes this to indicate type of code ig.
+    end = text.find("```", start)  # Find end pos at next set of triple quotes
+    return text[start:end].strip()  # Remove whitespace
     
 
-def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=256):
+def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=512):
 
-    chat_prompts = [{"role": "user", "content": p} for p in prompts]
+    chat_prompts = [[{"role": "user", "content": p}] for p in prompts]
     
     inputs = tokenizer.apply_chat_template(
         chat_prompts,
@@ -70,7 +77,7 @@ def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, pro
 
     with torch.no_grad():
         output_ids = model.generate(
-            **inputs,
+            inputs,
             max_new_tokens=max_length,
             do_sample=False,
             top_p=None,
@@ -84,6 +91,7 @@ def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, pro
         tokenizer.decode(output[input_lens:], skip_special_tokens=True)  # get all model outputs with inputs removed 
         for output in output_ids
     ]
+    responses = [extract_between_triple_quotes(r) for r in responses]
     return responses
 
 
@@ -196,8 +204,7 @@ def n_critics_algorithm(primary_model: str,
                         initial_prompt: str = "", 
                         max_iterations: int = 1, 
                         num_samples: int = 1,
-                        batch_size: int = 4,
-                        out_filename: str = "n_critics_results.jsonl") -> float:
+                        batch_size: int = 8) -> float:
     """
     N-Critics algorithm implementation.
 
@@ -206,8 +213,7 @@ def n_critics_algorithm(primary_model: str,
     :param initial_prompt (str): initial prompt to use for generating responses. 
     :param max_iterations (int): maximum number of refinement iterations. 
     :param num_samples (int): number of samples to generate for each programming problem statement.
-    :param out_filename (str): name of the output file to save the results. Must be a valid JSONL filename, 
-    ending in .jsonl or with no file extension. 
+    :param batch_size (int): batch size for increased processing speed. (Higher GPU memory usage.)
 
     :return (float): final pass@1 score of the primary model after all iterations.
     """
@@ -241,7 +247,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the N-Critics algorithm.")
     parser.add_argument("--max_iterations", type=int, default=1, help="Number of refinement iterations. Enter 1-8.")
     parser.add_argument("--num_samples", type=int, default=1, help="Number of samples per problem. Enter 1-10.")
-    parser.add_argument("--out_filename", type=str, default="n_critics_results.jsonl", help="Output filename. Must have .jsonl extension or no extension.")
     args = parser.parse_args()
     
     if args.max_iterations < 1 or args.max_iterations > 8: 
@@ -258,8 +263,7 @@ if __name__ == "__main__":
                                 critic_models, 
                                 initial_prompt=initial_prompt, 
                                 max_iterations=args.max_iterations,
-                                num_samples=args.num_samples,
-                                out_filename=args.out_filename)
+                                num_samples=args.num_samples)
     print("\n Final Pass@1 Scores: ")
     for i, score in enumerate(scores):
         print(f"iteration {i}: {score:.2f}")
