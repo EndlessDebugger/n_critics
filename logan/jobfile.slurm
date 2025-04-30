@@ -27,5 +27,3 @@ echo "Starting N-critics..."
 python3 n_critics.py 
 echo "N-critics complete."
 
-deactivate
-

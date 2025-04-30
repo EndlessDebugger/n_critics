@@ -1,0 +1,1 @@
+iteration 0: 0.72iteration 1: 0.69

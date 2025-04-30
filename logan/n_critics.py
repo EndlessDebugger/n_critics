@@ -15,9 +15,9 @@ from human_eval.evaluation import evaluate_functional_correctness
 from human_eval.data import read_problems, write_jsonl
 from ncriticstask import NCriticsTask
 delta_t = time.time() - start_time
-print(f"Completed imports in {delta_t} seconds.")
+print(f"Completed imports in {delta_t} seconds.") 
 
-def load_tasks(init_prompt = "DO NOT include comments, test cases, or any description. ONLY RUNNABLE CODE.", num_samples=1) -> list[NCriticsTask]:
+def load_tasks(init_prompt = "DO NOT include ANY comments, test cases, or any description. ONLY RUNNABLE CODE.\n", num_samples=1) -> list[NCriticsTask]:
     """Initializes a list of NCriticsTask objects from the problem set."""
     task_list = []
     problems = read_problems()
@@ -65,7 +65,7 @@ def extract_between_triple_quotes(text: str):
     return new_text.strip()
     
 
-def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=1024):
+def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, prompts: list, max_length=2048):
 
     chat_prompts = [[{"role": "user", "content": p}] for p in prompts]
     
@@ -98,7 +98,7 @@ def generate_response(model: AutoModelForCausalLM, tokenizer: AutoTokenizer, pro
     return responses
 
 
-def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 1024, batch_size: int = 4):
+def safe_generate_primary_responses(model_name: str, tasks: list[NCriticsTask], max_length: int = 1500, batch_size: int = 4):
     """Generate responses with dynamic batch adjustment on OOM."""
     with load_model(model_name) as (model, tokenizer):
         total_tasks = len(tasks)
