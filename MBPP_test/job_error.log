@@ -1,0 +1,1600 @@
+Loading checkpoint shards:   0%|          | 0/13 [00:00<?, ?it/s]Loading checkpoint shards:   8%|▊         | 1/13 [00:05<01:04,  5.41s/it]Loading checkpoint shards:  15%|█▌        | 2/13 [00:10<00:57,  5.21s/it]Loading checkpoint shards:  23%|██▎       | 3/13 [00:15<00:50,  5.09s/it]Loading checkpoint shards:  31%|███       | 4/13 [00:20<00:45,  5.10s/it]Loading checkpoint shards:  38%|███▊      | 5/13 [00:25<00:39,  4.98s/it]Loading checkpoint shards:  46%|████▌     | 6/13 [00:29<00:33,  4.86s/it]Loading checkpoint shards:  54%|█████▍    | 7/13 [00:34<00:28,  4.73s/it]Loading checkpoint shards:  62%|██████▏   | 8/13 [00:39<00:23,  4.71s/it]Loading checkpoint shards:  69%|██████▉   | 9/13 [00:43<00:18,  4.67s/it]Loading checkpoint shards:  77%|███████▋  | 10/13 [00:48<00:14,  4.82s/it]Loading checkpoint shards:  85%|████████▍ | 11/13 [00:53<00:09,  4.85s/it]Loading checkpoint shards:  92%|█████████▏| 12/13 [00:58<00:04,  4.87s/it]Loading checkpoint shards: 100%|██████████| 13/13 [01:01<00:00,  4.36s/it]Loading checkpoint shards: 100%|██████████| 13/13 [01:01<00:00,  4.76s/it]
+The `seen_tokens` attribute is deprecated and will be removed in v4.41. Use the `cache_position` model input instead.
+`get_max_cache()` is deprecated for all Cache classes. Use `get_max_cache_shape()` instead. Calling `get_max_cache()` will raise error from v4.48
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'min_cost' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_not_prime' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 7
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'differ_At_One_Bit_Pos' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_char_long' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Rotations' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'small_nnum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'remove_Occ' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sort_matrix' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_common' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Volume' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'split_lowerstring' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 7
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'square_perimeter' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'remove_dirty_chars' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'test_duplicate' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'multiples_of_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'maximum_Sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Product' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'remove' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_Odd_Occurrence' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 24, in <module>
+  File "<string>", line 8, in top_k_frequent
+NameError: name 'Counter' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_Prime_Factors' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'decimal_To_Binary' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+TypeError: find_missing() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_rect_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Nth_Digit' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'rearange_string' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 13, in <module>
+  File "<string>", line 2, in find_frequency
+NameError: name 'Counter' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'filter_evennumbers' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'text_match' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'text_match_string' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_gcd' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'test_distinct' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'compute_Last_Digit' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'specified_element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+TypeError: check_equilateral() takes 1 positional argument but 3 were given
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'parallelogram_area' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_Equality' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 32
+    Here's a brief explanation of the steps involved in the Counting Sort algorithm:
+        ^
+SyntaxError: unterminated string literal (detected at line 32)
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'tn_gp' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 14
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_octagonal' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_len_sub' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Substrings' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'smallest_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'subject_marks' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'recursive_list_sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'pos_count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_Monotonic' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_sublist' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_equal' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'dif_Square' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 12
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_samepatterns' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_tuples' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Squares' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_Diff' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 19
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'word_len' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_Char' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sequence' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 9
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'merge_dictionaries_three' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'freq_count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'closest_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'len_log' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_substring' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'index_minimum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'Find_Min_Length' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'divisor' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'frequency_lists' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'multiply_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'kth_element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'eulerian_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'add_lists' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Hexadecimal' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 21
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'odd_Equivalent' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'extract_missing' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 13
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'perimeter' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_integer' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'assign_freq' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 26
+    dict_list5 = [{}
+                 ^
+SyntaxError: '[' was never closed
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'list_to_float' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'search' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_product_tuple' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_triplet' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'smartNumber' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'amicable_numbers_sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'angle_complex' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_length' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+TypeError: 'int' object is not iterable
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'multiply_int' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'long_words' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'magic_square_test' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_occurrences' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'tup_string' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_negativenum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_last' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'hexagonal_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'cal_electbill' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'zero_count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_Sum_Of_Powers_Of_Two' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'circle_circumference' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'extract_singly' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_samepair' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_lists' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_Pairs' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_Abs_Diff' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'ascii_value_string' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+TypeError: max_path_sum() takes 1 positional argument but 3 were given
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_digits_twoparts' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'longest_subseq_with_diff_one' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'does_Contain_B' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_coprime' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'parabola_vertex' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'specified_element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'even_bit_toggle_number' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'tuple_int_str' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'encode_list' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'min_Ops' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'month_season' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'solution' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'areEquivalent' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_even_Pair' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'frequency' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_range_list' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'perimeter_pentagon' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_occurance' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'remove_splchar' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'group_keyvalue' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_valid_parenthese' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'perimeter_triangle' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 16
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'string_literals' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_num_keith' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 32
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'common_prefix' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_character' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_pairs' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'greater_specificnum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_literals' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'longest_common_subsequence' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 8
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+TypeError: first_Missing_Positive() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Intgral_Points' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_monthnumber' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_String' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'remove_tuple' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'octal_To_Decimal' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'first' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_exponentio' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 16
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'highest_Power_of_2' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'position_max' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'chkList' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'remove_even' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'hamming_Distance' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'inversion_elements' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'concatenate_elements' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_decimal' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'heap_replace' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'fourth_Power_Sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 6
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+  File "<string>", line 4, in decode_list
+TypeError: can't multiply sequence by non-int of type 'list'
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_subset_list' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'first_Repeated_Char' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'min_Operations' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'replace_max_specialchar' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'first_even' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_majority' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Set_Bits' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Min' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'all_Bits_Set_In_The_Given_Range' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 're_arrange_array' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'larg_nnum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'lateralsuface_cylinder' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'even_bit_set_number' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 9
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_occurences' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_total_number_of_sequences' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'replace_list' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'array_3d' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_charac' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sort_on_occurence' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'babylonian_squareroot' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'lps' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_X' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'insert_element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 12
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_integer' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'words_ae' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 17
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Primes_nums' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'maximize_elements' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'newman_prime' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'division_elements' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'split_two_parts' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'merge_dict' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'list_split' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'lateralsurface_cube' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'square_Sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_star_num' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_even_and_even_index' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'even_Power_Sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'rear_extract' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'substract_elements' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 19
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_Position' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'volume_cylinder' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'dict_filter' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_first_elements' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'is_num_decagonal' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'all_unique' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sub_list' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'validate' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'text_match_two_three' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_sub_array_sum_repeated' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'square_Sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'modular_inverse' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'odd_Days' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_length' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_no_of_ways' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'otherside_rightangle' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_val' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_div' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_Inv_Count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'intersection_nested_lists' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_binary_seq' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'dict_depth' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'set_Bit_Number' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'solve' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'start_withp' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_sum_increasing_subseq' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'colon_tuplex' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'large_product' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'maximum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'volume_cone' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'pos_nos' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'max_sum_rectangular_grid' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 10
+    ```
+    ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_last_occurrence' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'modified_encode' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+  File "<string>", line 3, in max_volume
+AttributeError: 'int' object has no attribute 'sort'
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_long_word' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_difference' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_demlo' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'position_min' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 're_arrange' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_of_alternates' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_Min_Squares' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'most_occurrences' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_isosceles' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+TypeError: rotate_left() takes 2 positional arguments but 3 were given
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'neg_count' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_char' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'char_frequency' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_Validity' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'ap_sum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'check_monthnum' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_Divisor' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'sum_three_smallest_nums' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'set_to_tuple' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_minimum_range' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'dig_let' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'count_Odd_Squares' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'diff_consecutivenums' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'zigzag' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_ways' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+AssertionError
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'minimum_Length' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'first_Element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'unique_Characters' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'tn_ap' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 27, in run_test
+    exec(code_str, local_env)
+  File "<string>", line 16
+    This function iterates over all possible rectangle sides `a` and `b` such that `a <= b`. It checks if the rectangle can fit within the circle by ensuring that the sum of the squares of the sides is less than or equal to twice the square of the circle's radius (`2 * r**2`). The function returns the count of such rectangles.
+                                                                                                                                                                                                                                                              ^
+SyntaxError: unterminated string literal (detected at line 16)
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_angle' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'find_max' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'moddiv_list' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'Check_Solution' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'get_carol' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'add_K_element' is not defined
+Traceback (most recent call last):
+  File "/scratch/user/lsc206573/nlp/mbpp/evaluate_mbpp.py", line 29, in run_test
+    exec(test, local_env)
+  File "<string>", line 1, in <module>
+NameError: name 'min_flip_to_make_string_alternate' is not defined
+slurmstepd: error: *** JOB 13392920 ON g035 CANCELLED AT 2025-04-21T20:58:28 DUE TO TIME LIMIT ***
